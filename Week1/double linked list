@@ -1,1 +1,104 @@
+// Cài đặt double linked list
+struct Node{
+public
+int data;
+Node* prev;
+Node* next;
+Node(int x){
+this -> data = x;
+this -> next = null;
+this -> prev = null;
+}
+}
 
+// chèn vào đầu 
+insertHead(int x) {
+Node* p = new Node(x);
+if (empty()) {
+head = tail = p;
+} else {
+p->next = head;
+head->prev = p;
+head = p;
+}
+size++;
+}
+
+// chèn vào cuối
+insertTail(int x){
+Node* p = new Node(x);
+if (empty()) {
+head = tail = p;
+} else {
+while (tmp -> next != nullptr){
+tmp = tmp -> next;
+}
+p->prev = tmp;
+tmp->next = p;
+tail = p;
+return head
+}
+
+// Chèn tại điểm k
+insertK (int x, int k){
+for (int i = 0; i < k; i++) cur = cur->next;  
+ 
+Node* p = new Node(x);
+p->prev = cur->prev;
+p->next = cur;
+cur->prev->next = p;
+cur->prev = p;
+size++;
+return head;
+}
+
+// Xóa đầu
+removeHead() {
+if (empty()) return head;
+Node* p = head;
+head = head->next;
+if (head) head->prev = nullptr;
+else tail = nullptr;
+delete p;
+size--;
+return head;
+}
+ 
+// Xóa đuôi
+removeTail() {
+if (empty()) return head;
+Node* p = tail;
+tail = tail->prev;
+if (tail) tail->next = nullptr;
+else head = nullptr;  // danh sách vừa trở nên rỗng
+delete p;
+size--;
+return true;
+}
+ 
+// Xóa tại vị trí k
+removeAt(int k) {
+if (k < 0 || k >= size) return head;
+if (k == 0) return removeHead();
+if (k == size - 1) return removeTail();
+ 
+Node* cur = head;
+for (int i = 0; i < k; i++) cur = cur->next;
+ 
+cur->prev->next = cur->next;
+cur->next->prev = cur->prev;
+delete cur;
+size--;
+return head;
+}
+// Duyệt xuôi
+traverseForward() const {
+for (Node* p = head; p != nullptr; p = p->next) printf(p -> data);
+return head;
+}
+ 
+// Duyệt ngược
+traverseBackward() const {
+for (Node* p = tail; p != nullptr; p = p->prev) printf(p->data);
+return head;
+}
