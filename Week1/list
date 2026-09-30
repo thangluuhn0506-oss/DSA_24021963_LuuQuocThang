@@ -1,0 +1,37 @@
+// cài đặt list
+class List{
+int *danhsach = new int[100];
+}
+
+// Chèn phần tử vào vị trí k
+chenPhanTu(int arr[], int &n, int x, int k) {
+    for (int i = n; i > k; i--) {
+        arr[i] = arr[i - 1];
+}
+    arr[k] = x;
+    n++;
+}
+
+// Xóa phần tử ở vị trí k
+xoaPhanTu(int arr[], int &n, int k) {
+    if (k < 0 || k >= n) {
+        printf ("Vi tri xoa khong hop le!");
+        return;
+    }
+    for (int i = k; i < n - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+    n--;
+}
+// duyệt xuôi list
+duyetxuoiList(int arr[]){
+for (int i = 0; i < n; i++){
+printf(arr[i]);
+}
+}
+// duyệt ngược list
+duyetnguoclist(int arr[]){
+for (int i = n-1 ; i => 0; i--){
+printf(arr[i]);
+}
+}
