@@ -1,0 +1,84 @@
+#include <iostream>
+#include <stdexcept>
+using namespace std;
+
+class Queue {
+private:
+    struct Node {
+        int data;
+        Node* next;
+        Node(int val) : data(val), next(nullptr) {}
+    };
+
+    Node* head;   
+    Node* tail;  
+    int count;    
+
+public:
+    Queue() : head(nullptr), tail(nullptr), count(0) {}
+
+    ~Queue() {
+        while (!isEmpty()) dequeue();
+    }
+
+    // Trả về true nếu queue rỗng
+    bool isEmpty() {
+        return head == nullptr;
+    }
+
+    // Chèn một phần tử vào cuối queue -> O(1)
+    void enqueue(int item) {
+        Node* newNode = new Node(item);
+        if (isEmpty()) {
+            head = tail = newNode;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+        count++;
+    }
+
+    // Xóa phần tử đầu khỏi queue và trả về phần tử đó -> O(1)
+    int dequeue() {
+        if (isEmpty()) throw runtime_error("Queue rong!");
+        Node* temp = head;
+        int value = temp->data;
+        head = head->next;
+        if (head == nullptr) tail = nullptr;  // queue vừa rỗng
+        delete temp;
+        count--;
+        return value;
+    }
+
+    // Trả về giá trị phần tử đầu (không xóa)
+    int peek() {
+        if (isEmpty()) throw runtime_error("Queue rong!");
+        return head->data;
+    }
+
+    int front() {
+        return peek();
+    }
+
+    // Trả về kích thước của queue
+    int size() {
+        return count;
+    }
+};
+
+int main() {
+    Queue q;
+    cout << "Rong? " << (q.isEmpty() ? "true" : "false") << endl;
+
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
+
+    cout << "Size: " << q.size() << endl;      // 3
+    cout << "Front: " << q.peek() << endl;     // 10
+    cout << "Dequeue: " << q.dequeue() << endl; // 10
+    cout << "Dequeue: " << q.dequeue() << endl; // 20
+    cout << "Size: " << q.size() << endl;      // 1
+    cout << "Rong? " << (q.isEmpty() ? "true" : "false") << endl;
+    return 0;
+}
